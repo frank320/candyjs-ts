@@ -1,0 +1,31 @@
+/**
+ * @author
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+/**
+ * 异常
+ */
+export default class Exception extends Error {
+    
+    /**
+     * constructor
+     *
+     * @param {String} message 错误信息
+     */
+    constructor(message) {
+        super(message);
+        
+        this.name = this.constructor.name;
+    }
+    
+    /**
+     * 获得错误名
+     *
+     * @return {String}
+     */
+    public getName(): string {
+        return this.name;
+    }
+    
+}
