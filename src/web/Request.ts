@@ -1,6 +1,6 @@
 /**
  * @author
- * @license http://www.apache.org/licenses/LICENSE-2.0
+ * @license MIT
  */
 import * as http from 'http';
 import * as url from 'url';

@@ -1,6 +1,6 @@
 /**
  * @author
- * @license http://www.apache.org/licenses/LICENSE-2.0
+ * @license MIT
  */
 import Candy from '../Candy';
 import Behavior from './Behavior';
