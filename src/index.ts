@@ -40,7 +40,7 @@ export default class CandyJs {
      *
      * @param {Object} config 配置信息
      */
-    constructor(config) {
+    constructor(config: object) {
         if(undefined === config) {
             throw new InvalidConfigException('The app config is required');
         }

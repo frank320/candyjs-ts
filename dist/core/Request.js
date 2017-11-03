@@ -2,26 +2,20 @@
  * @author
  * @license MIT
  */
-
+"use strict";
 /**
  * server request
  */
-export default class Request {
-    
-    public request: object;
-
-    protected _scriptFile: string;
-
+class Request {
     /**
      * constructor
      *
      * @param {http.ServerRequest} request
      */
-    constructor(request: object) {
+    constructor(request) {
         this.request = request;
         this._scriptFile = '';
     }
-    
     /**
      * 返回入口文件名
      *
@@ -31,8 +25,9 @@ export default class Request {
         if (null === this._scriptFile) {
             this._scriptFile = process.mainModule.filename;
         }
-        
         return this._scriptFile;
     }
-    
 }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Request;
+//# sourceMappingURL=Request.js.map
