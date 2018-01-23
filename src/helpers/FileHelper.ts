@@ -17,7 +17,7 @@ class FileHelper {
      * @param {String} dir 目录路径
      * @return {String}
      */
-    static getDirname(dir) {
+    static getDirname(dir: string): string {
         dir = dir.replace(/\\/g, '/').replace(/\/[^\/]*\/?$/, '');
         
         return '' === dir ? '/' : dir;
@@ -35,8 +35,8 @@ class FileHelper {
      * @param {String} directorySeparator 目录分隔符
      * @return {String} 转换后的路径
      */
-    static normalizePath(path, directorySeparator = '/') {
-        var ret = [];
+    static normalizePath(path: string, directorySeparator: string = '/'): string {
+        let ret: string[] = [];
         
         path = path.replace(/\\+/g, directorySeparator);
         if(directorySeparator === path.charAt(path.length - 1)) {
@@ -67,7 +67,7 @@ class FileHelper {
      * @param {Number} mode 目录权限
      * @param {Function} callback 回调函数
      */
-    static createDirectory(dir, mode = 0o777, callback = null) {
+    static createDirectory(dir: string, mode: number = 0o777, callback: any = null): void {
         fs.access(dir, fs.constants.F_OK, (err) => {
             if(null === err) {
                 null !== callback && callback();
@@ -86,8 +86,9 @@ class FileHelper {
      *
      * @param {String} dir 目录路径
      * @param {Number} mode 目录权限
+     * @return {Boolean}
      */
-    static createDirectorySync(dir, mode = 0o777) {
+    static createDirectorySync(dir: string, mode: number = 0o777): boolean {
         if(fs.existsSync(dir)) {
             return true;
         }
@@ -105,7 +106,7 @@ class FileHelper {
      * @param {String} path 文件路径
      * @return {Boolean}
      */
-    static existsSync(path) {
+    static existsSync(path: string): boolean {
         return fs.existsSync(path);
     }
     

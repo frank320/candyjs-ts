@@ -156,7 +156,7 @@ export default class URI {
      *
      * @param {String} uri
      */
-    public setURI(uri: string) {
+    public setURI(uri: string): void {
         let ret = this.parseUrl(uri);
         
         if(undefined !== ret['scheme']) {
@@ -228,8 +228,10 @@ export default class URI {
     
     /**
      * 转为字符串
+     *
+     * @return {String}
      */
-    public toString() {
+    public toString(): string {
         return this.createURIString(
             this.scheme,
             this.getAuthority(),

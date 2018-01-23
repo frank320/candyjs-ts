@@ -2,13 +2,14 @@
  * @author
  * @license MIT
  */
+import * as http from 'http';
 
 /**
  * server request
  */
 export default class Request {
     
-    public request: object;
+    public request: http.ServerRequest;
 
     protected _scriptFile: string;
 
@@ -17,7 +18,7 @@ export default class Request {
      *
      * @param {http.ServerRequest} request
      */
-    constructor(request: object) {
+    constructor(request: http.ServerRequest) {
         this.request = request;
         this._scriptFile = '';
     }
@@ -27,7 +28,7 @@ export default class Request {
      *
      * @return {String}
      */
-    getScriptFile() {
+    getScriptFile(): string {
         if (null === this._scriptFile) {
             this._scriptFile = process.mainModule.filename;
         }

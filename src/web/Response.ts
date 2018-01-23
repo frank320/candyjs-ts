@@ -160,7 +160,7 @@ export default class Response extends CoreResponse {
      *
      * @return {Number}
      */
-    public getStatusCode() {
+    public getStatusCode(): number {
         return this.statusCode;
     }
     
@@ -169,8 +169,9 @@ export default class Response extends CoreResponse {
      *
      * @param {Number} value the status code
      * @param {String} text the status text
+     * @return {Response}
      */
-    public setStatusCode(value: number, text?: string) {
+    public setStatusCode(value: number, text?: string): Response {
         if(value < 100 || value >= 600) {
             throw new HttpException('The HTTP status code is invalid');
         }
@@ -207,8 +208,9 @@ export default class Response extends CoreResponse {
      *
      * @param {String} name header name
      * @param {String} value of header
+     * @return {Response}
      */
-    public setHeader(name: string, value: string) {
+    public setHeader(name: string, value: string): Response {
         this.headers[name] = value;
         
         return this;
@@ -227,8 +229,9 @@ export default class Response extends CoreResponse {
      * 设置实体内容
      *
      * @param {String | Buffer} content 实体内容
+     * @return {Response}
      */
-    public setContent(content: string | Buffer) {
+    public setContent(content: string | Buffer): Response {
         this.content = content;
         
         return this;
@@ -240,8 +243,9 @@ export default class Response extends CoreResponse {
      * @param {String} name cookie name
      * @param {String} value cookie value
      * @param {Object} options other config
+     * @return {Response}
      */
-    public setCookie(name: string, value: string, options: object) {
+    public setCookie(name: string, value: string, options: object): Response {
         if(undefined === options) {
             options = {};
         }
@@ -262,7 +266,7 @@ export default class Response extends CoreResponse {
     /**
      * @inheritdoc
      */
-    public send(content?: string) {
+    public send(content?: string): void {
         if(undefined !== content) {
             this.setContent(content);
         }
@@ -270,33 +274,33 @@ export default class Response extends CoreResponse {
         this.sendHeaders();
         this.sendContent();
         
-        (<http.ServerResponse>this.response).end();
+        this.response.end();
     }
     
     /**
      * 发送 header
      */
-    public sendHeaders() {
-        if((<http.ServerResponse>this.response).headersSent) {
+    public sendHeaders(): void {
+        if((this.response).headersSent) {
             return;
         }
         
         for(let name in this.headers) {
-            (<http.ServerResponse>this.response).setHeader(name, this.headers[name]);
+            this.response.setHeader(name, this.headers[name]);
         }
         
         if(this.cookies.length > 0) {
             Cookie.setCookie(<http.ServerResponse>this.response, this.cookies);
         }
         
-        (<http.ServerResponse>this.response).writeHead(this.statusCode, this.statusText);
+        this.response.writeHead(this.statusCode, this.statusText);
     }
     
     /**
      * 发送内容
      */
-    public sendContent() {
-        (<http.ServerResponse>this.response).write(this.content, this.encoding);
+    public sendContent(): void {
+        this.response.write(this.content, this.encoding);
     }
     
     /**
@@ -305,7 +309,7 @@ export default class Response extends CoreResponse {
      * @param {String} url
      * @param {Number} statusCode
      */
-    public redirect(url: string, statusCode: number = 302) {
+    public redirect(url: string, statusCode: number = 302): void {
         this.setHeader('Location', url);
         
         this.setStatusCode(statusCode);

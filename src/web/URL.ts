@@ -30,9 +30,9 @@ export default class URL {
      *
      * @return {String}
      */
-    public getReferer() {
+    public getReferer(): string {
         if(undefined !== this.request.headers.referer) {
-            return this.request.headers.referer;
+            return <string>this.request.headers.referer;
         }
         
         return '';
@@ -78,7 +78,7 @@ export default class URL {
      * @param {Object} params
      * @return {String}
      */
-    public to(url: string, params: object = null) {
+    public to(url: string, params: object = null): string {
         let host = this.getHostInfo();
         let query = '';
         let anchor = '';

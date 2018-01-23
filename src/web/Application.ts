@@ -8,8 +8,8 @@ import Candy from '../Candy';
 import CoreApp from '../core/Application';
 import Exception from '../core/Exception';
 import CoreController from '../core/Controller';
-var Request = require('./Request');
-var InvalidRouteException = require('../core/InvalidRouteException');
+import Request from './Request';
+import InvalidRouteException from '../core/InvalidRouteException';
 
 /**
  * web 应用
@@ -24,7 +24,7 @@ export default class Application extends CoreApp {
     /**
      * @inheritdoc
      */
-    constructor(config) {
+    constructor(config: object) {
         super(config);
         
         this.defaultExceptionHandler = 'candy/web/ExceptionHandler';

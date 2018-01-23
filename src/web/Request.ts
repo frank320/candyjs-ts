@@ -25,8 +25,9 @@ export default class Request extends CoreRequest {
      * 解析 request url
      *
      * @param {http.ServerRequest} request 请求对象
+     * @return {ParsedUrl}
      */
-    public static parseUrl(request: http.ServerRequest) {
+    public static parseUrl(request: http.ServerRequest): ParsedUrl {
         let obj = url.parse(request.url);
         
         return {
@@ -43,8 +44,9 @@ export default class Request extends CoreRequest {
      * 获取客户端 ip
      *
      * @param {http.ServerRequest} request 请求对象
+     * @return {String}
      */
-    public static getClientIp(request: http.ServerRequest) {
+    public static getClientIp(request: http.ServerRequest): string {
         let forward = request.headers['x-forwarded-for'];
         if(undefined !== forward) {
             return (<string>forward).substring(0, forward.indexOf(','));
@@ -60,7 +62,7 @@ export default class Request extends CoreRequest {
      * @param {String} param 参数名
      * @return {String | null | ''}
      */
-    public static getQueryString(request: http.ServerRequest, param: string) {
+    public static getQueryString(request: http.ServerRequest, param: string): string | null | '' {
         let parsed = Request.parseUrl(request);
         
         // 查找参数
@@ -85,7 +87,7 @@ export default class Request extends CoreRequest {
      * @param {String} param 参数名
      * @return {String | null | undefined | ''}
      */
-    public static getParameter(request: http.ServerRequest, param: string) {
+    public static getParameter(request: http.ServerRequest, param: string): string | null | undefined | '' {
         if(undefined === request['body']) {
             return null;
         }
@@ -97,8 +99,9 @@ export default class Request extends CoreRequest {
      * 
      * @param {http.ServerRequest} request 请求对象
      * @param {String} name cookie name
+     * @return {String}
      */
-    public static getCookie(request: http.ServerRequest, name: string) {
+    public static getCookie(request: http.ServerRequest, name: string): string {
         return Cookie.getCookie(request, name);
     }
     
@@ -108,8 +111,8 @@ export default class Request extends CoreRequest {
      * @param {String} param 参数名
      * @return {String | null | ''}
      */
-    public getQueryString(param: string) {
-        var parsed = Request.parseUrl(<http.ServerRequest>this.request);
+    public getQueryString(param: string): string | null | '' {
+        var parsed = Request.parseUrl(this.request);
         
         // 查找参数
         if(null !== parsed.query &&
@@ -132,7 +135,7 @@ export default class Request extends CoreRequest {
      * @param {String} param 参数名
      * @param {String} value 参数值
      */
-    public setQueryString(param: string, value: string) {
+    public setQueryString(param: string, value: string): void {
         if(undefined === this.request['additionalQuery']) {
             this.request['additionalQuery'] = {};
         }
@@ -146,7 +149,7 @@ export default class Request extends CoreRequest {
      * @param {String} param 参数名
      * @return {String | null | undefined | ''}
      */
-    public getParameter(param: string) {
+    public getParameter(param: string): string | null | undefined | '' {
         if(undefined === this.request['body']) {
             return null;
         }
@@ -158,9 +161,19 @@ export default class Request extends CoreRequest {
      * 获取 cookie
      *
      * @param {String} name cookie name
+     * @return {String}
      */
-    public getCookie(name: string) {
-        return Cookie.getCookie(<http.ServerRequest>this.request, name);
+    public getCookie(name: string): string {
+        return Cookie.getCookie(this.request, name);
     }
     
+}
+
+interface ParsedUrl {
+    protocol: string,
+    host: string,
+    hash: string,
+    query: string,
+    additionalQuery: string,
+    pathname: string
 }

@@ -34,7 +34,7 @@ export default class Controller extends CoreController {
     /**
      * @inheritdoc
      */
-    public getView() {
+    public getView(): View {
         if(null !== this.view) {
             return this.view;
         }

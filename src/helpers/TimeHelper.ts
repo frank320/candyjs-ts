@@ -17,7 +17,7 @@ class TimeHelper {
      * @param {Number} length 处理后字符串长度
      * @return {String} 处理后的字符串
      */
-    static stringLPad(str, pad, length) {
+    static stringLPad(str: string, pad: string, length: number): string {
         while(str.length < length) {
             str = pad + str;
         }
@@ -33,7 +33,7 @@ class TimeHelper {
      * @param {Number} length 处理后字符串长度
      * @return {String} 处理后的字符串
      */
-    static stringRPad(str, pad, length) {
+    static stringRPad(str: string, pad: string, length: number) {
         while(str.length < length) {
             str = str + pad;
         }
@@ -52,9 +52,9 @@ class TimeHelper {
      *
      * @return {String}
      */
-    static format(formats, timestamp) {
-        var d = undefined === timestamp ? new Date() : new Date(timestamp);
-        var funs = {
+    static format(formats: string, timestamp: number): string {
+        let d = undefined === timestamp ? new Date() : new Date(timestamp);
+        let funs = {
             y: () => d.getFullYear()
             ,m: () => TimeHelper.stringLPad(String(d.getMonth() + 1), '0', 2)
             ,d: () => TimeHelper.stringLPad(String(d.getDate()), '0', 2)

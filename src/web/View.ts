@@ -22,7 +22,7 @@ export default class View extends CoreView {
     /**
      * @inheritdoc
      */
-    public getTemplateFilePath(view: string) {
+    public getTemplateFilePath(view: string): string {
         let app = Candy.app;
         let context = this.context;
         let path = '';
@@ -47,8 +47,8 @@ export default class View extends CoreView {
     /**
      * @inheritdoc
      */
-    public getTemplate(view: string, callback: any) {
-        var path = this.getTemplateFilePath(view);
+    public getTemplate(view: string, callback: any): void {
+        let path = this.getTemplateFilePath(view);
         
         fs.readFile(path, Candy.app.encoding, callback);
     }
@@ -56,7 +56,7 @@ export default class View extends CoreView {
     /**
      * @inheritdoc
      */
-    getTemplateFromPath(path: string, callback: any) {
+    getTemplateFromPath(path: string, callback: any): void {
         fs.readFile(path, Candy.app.encoding, callback);
     }
     

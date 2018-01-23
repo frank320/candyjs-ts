@@ -42,7 +42,7 @@ export default class Cookie {
         this.httpOnly = httpOnly;
     }
     
-    public toString() {
+    public toString(): string {
         let ret: string[] = [this.name + '=' + this.value];
         
         if(0 !== this.expires) {
@@ -96,7 +96,7 @@ export default class Cookie {
      * @param {Object} response cookie name
      * @param {Array} cookies cookies
      */
-    public static setCookie(response: http.ServerResponse, cookies: any) {
+    public static setCookie(response: http.ServerResponse, cookies: any): void {
         response.setHeader('Set-Cookie', cookies);
     }
     
