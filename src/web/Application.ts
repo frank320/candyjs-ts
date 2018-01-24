@@ -56,7 +56,7 @@ export default class Application extends CoreApp {
      * @inheritdoc
      */
     public handlerException(response: http.ServerResponse, exception: Exception) {
-        var handler = Candy.createObject('' === this.exceptionHandler
+        let handler = Candy.createObject('' === this.exceptionHandler
             ? this.defaultExceptionHandler
             : this.exceptionHandler);
         

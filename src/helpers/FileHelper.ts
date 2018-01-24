@@ -1,6 +1,6 @@
 /**
  * @author
- * @license http://www.apache.org/licenses/LICENSE-2.0
+ * @license MIT
  */
 'use strict';
 
@@ -9,7 +9,7 @@ var fs = require('fs');
 /**
  * 文件处理
  */
-class FileHelper {
+export default class FileHelper {
     
     /**
      * 获取 dirname
@@ -111,5 +111,3 @@ class FileHelper {
     }
     
 }
-
-module.exports = FileHelper;

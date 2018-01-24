@@ -29,9 +29,9 @@ export default class Event {
      * 注册事件处理
      *
      * @param {String} eventName 事件名称
-     * @param {Function} handler 回调函数
+     * @param {any} handler 回调函数
      */
-    public on(eventName: string, handler: Function) {
+    public on(eventName: string, handler: any) {
         if(undefined === this.handlers[eventName]) {
             this.handlers[eventName] = [];
         }
@@ -43,9 +43,9 @@ export default class Event {
      * 注销事件处理
      *
      * @param {String} eventName 事件名称
-     * @param {Function} handler 回调函数
+     * @param {any} handler 回调函数
      */
-    public off(eventName: string, handler: Function) {
+    public off(eventName: string, handler: any) {
         if(undefined !== this.handlers[eventName]) {
             if(undefined === handler) {
                 delete this.handlers[eventName];
