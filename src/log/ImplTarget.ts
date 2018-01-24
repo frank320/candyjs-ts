@@ -25,7 +25,7 @@ abstract class ImplTarget extends LogEvent implements ITarget {
     /**
      * @inheritdoc
      */
-    public flush(messages: any[]): void {}
+    public flush(messages: any[]): void {};
     
 }
 

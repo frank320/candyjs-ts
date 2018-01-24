@@ -54,7 +54,7 @@ export default class Candy {
      * @param {String} alias 路径别名
      * @param {String} path 路径
      */
-    public static setPathAlias(alias: string, path: string) {
+    public static setPathAlias(alias: string, path: string): void {
         if('@' !== alias.charAt(0)) {
             alias = '@' + alias;
         }
@@ -129,7 +129,7 @@ export default class Candy {
      * @param {Object} properties 配置项
      * @return {Object} 源对象
      */
-    public static config(object: any, properties: any) {
+    public static config(object: any, properties: any): void {
         for(let key in properties) {
             object[key] = properties[key];
         }
