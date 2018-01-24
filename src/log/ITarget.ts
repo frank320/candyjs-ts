@@ -7,7 +7,7 @@
 /**
  * 日志接口层
  */
-export default interface ITarget {
+interface ITarget {
     
     /**
      * flush log
@@ -17,3 +17,5 @@ export default interface ITarget {
     flush(messages: any[]): void;
     
 }
+
+export default ITarget;

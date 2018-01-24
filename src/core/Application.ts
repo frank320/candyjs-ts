@@ -31,7 +31,7 @@ export default class Application extends Core {
      *
      * @param {Object} config 配置信息
      */
-    constructor(config: object) {
+    constructor(config: any) {
         super();
         
         this.encoding = 'UTF-8';
@@ -49,34 +49,34 @@ export default class Application extends Core {
      * @param {Object} config 应用配置
      * @throws {InvalidConfigException} 当丢失必要配置项目时
      */
-    public init(config: object) {
-        if(undefined === config['id']) {
+    public init(config: any) {
+        if(undefined === config.id) {
             throw new InvalidConfigException('The "id" configuration is required');
         }
         
-        if(undefined !== config['appPath']) {
-            this.setAppPath(config['appPath']);
-            delete config['appPath'];
+        if(undefined !== config.appPath) {
+            this.setAppPath(config.appPath);
+            delete config.appPath;
             
         } else {
             throw new InvalidConfigException('The "appPath" configuration is required');
         }
         
-        if(undefined !== config['runtimePath']) {
-            this.setRuntimePath(config['runtimePath']);
-            delete config['runtimePath'];
+        if(undefined !== config.runtimePath) {
+            this.setRuntimePath(config.runtimePath);
+            delete config.runtimePath;
             
         } else {
             // set "app/runtime"
             this.setRuntimePath( this.getAppPath() + '/runtime');
         }
         
-        if(undefined !== config['rootPath']) {
-            this.setRootPath(config['rootPath']);
-            delete config['rootPath'];
+        if(undefined !== config.rootPath) {
+            this.setRootPath(config.rootPath);
+            delete config.rootPath;
             
         } else {
-            this.setRootPath(process.env.pwd);
+            this.setRootPath(process.env['PWD']);
         }
     }
     
@@ -140,7 +140,7 @@ export default class Application extends Core {
      * @param {Object} request
      * @param {Object} response
      */
-    public requestListener(request: object, response: object) {}
+    public requestListener(request: any, response: any) {}
     
     /**
      * 异常处理
@@ -148,6 +148,6 @@ export default class Application extends Core {
      * @param {Object} response 输出类
      * @param {Exception} exception 异常类
      */
-    public handlerException(response: object, exception: Error) {}
+    public handlerException(response: any, exception: Error) {}
     
 }

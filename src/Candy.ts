@@ -18,7 +18,7 @@ export default class Candy {
     /**
      * @property {Object} pathAliases 路径别名
      */
-    public static pathAliases: object = {'@y': __dirname};
+    public static pathAliases: any = {'@y': __dirname};
 
     /**
      * @property {String} fileExtention 默认文件扩展名
@@ -38,7 +38,7 @@ export default class Candy {
 
         // 截取开头作为别名
         let pos: number = alias.indexOf('/');
-        var root: string = -1 === pos ? alias : alias.substring(0, pos);
+        let root: string = -1 === pos ? alias : alias.substring(0, pos);
         if(undefined !== Candy.pathAliases[root]) {
             return -1 === pos ?
                 Candy.pathAliases[root] :
@@ -79,11 +79,11 @@ export default class Candy {
      * {class: '...', ...}
      *
      * @param {any} params 构造函数参数
-     * @return {Object} 类实例
+     * @return {any} 类实例
      */
-    public static createObject(clazz: string | object, ...params: any[]): object {
-        let realClass: string = '';
-        let properties: object = null;
+    public static createObject(clazz: any, ...params: any[]): any {
+        let realClass = '';
+        let properties = null;
         
         if('string' === typeof clazz) {
             realClass = Candy.getPathAlias('@' + clazz);
@@ -98,8 +98,8 @@ export default class Candy {
         // 文件不存在抛出异常
         // todo
         
-        let ClassName: any = require(realClass + Candy.fileExtention);
-        let instance: object = new ClassName(...params);
+        let ClassName = require(realClass + Candy.fileExtention);
+        let instance = new ClassName(...params);
         
         if(null !== properties) {
             Candy.config(instance, properties);
@@ -125,11 +125,11 @@ export default class Candy {
     /**
      * 对象配置
      *
-     * @param {Object} object 需要配置的对象
+     * @param {any} object 需要配置的对象
      * @param {Object} properties 配置项
      * @return {Object} 源对象
      */
-    public static config(object: object, properties: object) {
+    public static config(object: any, properties: any) {
         for(let key in properties) {
             object[key] = properties[key];
         }

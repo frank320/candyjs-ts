@@ -23,7 +23,7 @@ export default class Core {
      * }
      *
      */
-    public interceptAll: string | object;
+    public interceptAll: any;
 
     /**
      * @property {Object} routesMap 实现路由到控制器转换配置
@@ -37,7 +37,7 @@ export default class Core {
      * }
      *
      */
-    public routesMap: object;
+    public routesMap: any;
 
     /**
      * @property {Object} modules 注册的模块
@@ -47,7 +47,7 @@ export default class Core {
      * }
      *
      */
-    public modules: object;
+    public modules: any;
 
     /**
      * @property {String} defaultRoute 默认路由

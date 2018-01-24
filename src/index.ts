@@ -23,7 +23,7 @@ export default class CandyJs {
     /**
      * @property {Object} config 配置信息
      */
-    public config: object;
+    public config: any;
 
     /**
      * @property {http.Serve} server 配置信息
@@ -40,7 +40,7 @@ export default class CandyJs {
      *
      * @param {Object} config 配置信息
      */
-    constructor(config: object) {
+    constructor(config: any) {
         if(undefined === config) {
             throw new InvalidConfigException('The app config is required');
         }

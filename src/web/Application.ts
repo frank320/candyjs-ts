@@ -24,7 +24,7 @@ export default class Application extends CoreApp {
     /**
      * @inheritdoc
      */
-    constructor(config: object) {
+    constructor(config: any) {
         super(config);
         
         this.defaultExceptionHandler = 'candy/web/ExceptionHandler';

@@ -70,13 +70,13 @@ export default class Cookie {
      * @return {String | null}
      */
     public static getCookie(request: http.ServerRequest, name: string): string | null {
-        if(undefined === request.headers.cookie) {
+        if(undefined === request.headers['cookie']) {
             return null;
         }
         
         let ret: string = '';
         let tmp: string[] = null;
-        let list: string[] = (<string>request.headers.cookie).split('; ');
+        let list: string[] = (<string>request.headers['cookie']).split('; ');
         
         for(let i=0,len=list.length; i<len; i++) {
             tmp = list[i].split('=');

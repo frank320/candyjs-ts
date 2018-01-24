@@ -16,12 +16,12 @@ export default class View {
      /**
      * @property {Object} context 上下文环境
      */
-    public context: object;
+    public context: any;
     
     /**
      * constructor
      */
-    constructor(context: object) {
+    constructor(context: any) {
         this.context = context;
     }
     

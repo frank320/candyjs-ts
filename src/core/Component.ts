@@ -10,8 +10,8 @@ import Behavior from './Behavior';
  */
 export default class Component {
     
-    public eventsMap: object;
-    public behaviorsMap: object;
+    public eventsMap: any;
+    public behaviorsMap: any;
 
     /**
      * constructor
@@ -43,7 +43,7 @@ export default class Component {
     }
     
     // 行为注入组件
-    inject() {
+    public inject(): void {
         let keys: string[] = Object.keys(this.behaviorsMap);
         
         if(0 === keys.length) return;
@@ -92,15 +92,15 @@ export default class Component {
      * }
      *
      */
-    behaviors(): object {
+    public behaviors(): any {
         return {};
     }
     
     /**
      * 确保 behaviors() 声明的行为已保存到组件
      */
-    ensureDeclaredBehaviorsAttached() {
-        let behaviors: object = this.behaviors();
+    public ensureDeclaredBehaviorsAttached(): void {
+        let behaviors: any = this.behaviors();
         for(let name in behaviors) {
             this.attachBehaviorInternal(name, behaviors[name]);
         }
@@ -110,9 +110,9 @@ export default class Component {
      * 向组件附加一个行为
      *
      * @param {String} name 行为的名称
-     * @param {String | Object | JSON} behavior
+     * @param {String | Behavior} behavior
      */
-    attachBehavior(name: string, behavior: string | object) {
+    public attachBehavior(name: string, behavior: string | Behavior): void {
         this.attachBehaviorInternal(name, behavior);
     }
     
@@ -122,7 +122,7 @@ export default class Component {
      * @param {String} name 行为的名称
      * @return {Object | null}
      */
-    detachBehavior(name: string) {
+    public detachBehavior(name: string): any {
         if(undefined !== this.behaviorsMap[name]) {
             let behavior = this.behaviorsMap[name];
             
@@ -139,9 +139,9 @@ export default class Component {
      * 保存行为类到组件
      *
      * @param {String} name 行为的名称
-     * @param {String | Object} behavior
+     * @param {String | Behavior} behavior
      */
-    attachBehaviorInternal(name: string, behavior: string | object) {
+    public attachBehaviorInternal(name: string, behavior: string | Behavior): void {
         if(!(behavior instanceof Behavior)) {
             behavior = Candy.createObject(behavior);
         }
@@ -161,7 +161,7 @@ export default class Component {
      * @param {String} eventName 事件名称
      * @param {Function} handler 回调函数
      */
-    on(eventName, handler) {
+    public on(eventName, handler): void {
         if(undefined === this.eventsMap[eventName]) {
             this.eventsMap[eventName] = [];
         }
@@ -175,7 +175,7 @@ export default class Component {
      * @param {String} eventName 事件名称
      * @param {Function} handler 回调函数
      */
-    off(eventName, handler) {
+    public off(eventName, handler): void {
         if(undefined !== this.eventsMap[eventName]) {
             if(undefined === handler) {
                 delete this.eventsMap[eventName];
@@ -196,7 +196,7 @@ export default class Component {
      * @param {String} eventName 事件名称
      * @param {Array} param 参数
      */
-    trigger(eventName, param) {
+    public trigger(eventName, param): void {
         if(undefined !== this.eventsMap[eventName]) {
             for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
                 undefined === param ? this.eventsMap[eventName][i]() :
@@ -211,7 +211,7 @@ export default class Component {
      * @param {String} eventName 事件名称
      * @param {any} params 参数
      */
-    triggerWithRestParams(eventName, ...params) {
+    public triggerWithRestParams(eventName, ...params): void {
         if(undefined !== this.eventsMap[eventName]) {
             for(let i=0,len=this.eventsMap[eventName].length; i<len; i++) {
                 this.eventsMap[eventName][i](...params);

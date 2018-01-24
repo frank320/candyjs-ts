@@ -15,6 +15,6 @@ export default class ExceptionHandler {
      * @param {object} response 输出类
      * @param {Error} exception 异常类
      */
-    handlerException(response: object, exception: Error) {}
+    handlerException(response: any, exception: Error) {}
     
 }

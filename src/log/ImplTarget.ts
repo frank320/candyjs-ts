@@ -10,7 +10,7 @@ import LogEvent from './LogEvent';
 /**
  * 日志抽象层
  */
-export default abstract class ImplTarget extends LogEvent implements ITarget {
+abstract class ImplTarget extends LogEvent implements ITarget {
     
     /**
      * @property {String} fileExtension 文件扩展名
@@ -28,3 +28,5 @@ export default abstract class ImplTarget extends LogEvent implements ITarget {
     public flush(messages: any[]): void {}
     
 }
+
+export default ImplTarget;

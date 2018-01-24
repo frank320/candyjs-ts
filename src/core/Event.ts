@@ -16,7 +16,7 @@ export default class Event {
      *     'eventName2': [fn1, fn2...]
      * }
      */
-    public handlers: object;
+    public handlers: any;
     
     /**
      * constructor

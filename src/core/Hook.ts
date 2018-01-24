@@ -77,7 +77,7 @@ export default class Hook {
      * @param {Object} res
      * @param {Function} callback
      */
-    public trigger(req: object, res: object, callback: any) {
+    public trigger(req: any, res: any, callback: any) {
         let first: any = this.getHook();
         
         this.callback = callback;
@@ -91,7 +91,7 @@ export default class Hook {
         this.triggerHook(req, res, first);
     }
     
-    public triggerHook(req: object, res: object, next: any) {
+    public triggerHook(req: any, res: any, next: any) {
         next(req, res, () => {
             let nextHandler: any = this.getHook();
             

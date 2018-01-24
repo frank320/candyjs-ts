@@ -191,7 +191,7 @@ export default class URI {
      * @param {String} url
      * @return {Object}
      */
-    public parseUrl(url: string): object {
+    public parseUrl(url: string): any {
         let ret = {};
         
         let matches = url.match(this.uriRegExp);

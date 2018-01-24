@@ -128,7 +128,7 @@ export default class Response extends CoreResponse {
     /**
      * @property {Object} headers HTTP headers
      */
-    public headers: object;
+    public headers: any;
 
     /**
      * @property {String | Buffer} content HTTP content
@@ -245,7 +245,7 @@ export default class Response extends CoreResponse {
      * @param {Object} options other config
      * @return {Response}
      */
-    public setCookie(name: string, value: string, options: object): Response {
+    public setCookie(name: string, value: string, options: any): Response {
         if(undefined === options) {
             options = {};
         }

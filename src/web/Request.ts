@@ -25,9 +25,9 @@ export default class Request extends CoreRequest {
      * 解析 request url
      *
      * @param {http.ServerRequest} request 请求对象
-     * @return {ParsedUrl}
+     * @return {any}
      */
-    public static parseUrl(request: http.ServerRequest): ParsedUrl {
+    public static parseUrl(request: http.ServerRequest): any {
         let obj = url.parse(request.url);
         
         return {
@@ -60,9 +60,9 @@ export default class Request extends CoreRequest {
      * 
      * @param {Object} request 请求对象
      * @param {String} param 参数名
-     * @return {String | null | ''}
+     * @return {any}
      */
-    public static getQueryString(request: http.ServerRequest, param: string): string | null | '' {
+    public static getQueryString(request: http.ServerRequest, param: string): any {
         let parsed = Request.parseUrl(request);
         
         // 查找参数
@@ -85,9 +85,9 @@ export default class Request extends CoreRequest {
      * 
      * @param {http.ServerRequest} request 请求对象
      * @param {String} param 参数名
-     * @return {String | null | undefined | ''}
+     * @return {any}
      */
-    public static getParameter(request: http.ServerRequest, param: string): string | null | undefined | '' {
+    public static getParameter(request: http.ServerRequest, param: string): any {
         if(undefined === request['body']) {
             return null;
         }
@@ -109,9 +109,9 @@ export default class Request extends CoreRequest {
      * 获取 get 参数
      *
      * @param {String} param 参数名
-     * @return {String | null | ''}
+     * @return {any}
      */
-    public getQueryString(param: string): string | null | '' {
+    public getQueryString(param: string): any {
         var parsed = Request.parseUrl(this.request);
         
         // 查找参数
@@ -149,7 +149,7 @@ export default class Request extends CoreRequest {
      * @param {String} param 参数名
      * @return {String | null | undefined | ''}
      */
-    public getParameter(param: string): string | null | undefined | '' {
+    public getParameter(param: string): any {
         if(undefined === this.request['body']) {
             return null;
         }
@@ -167,13 +167,4 @@ export default class Request extends CoreRequest {
         return Cookie.getCookie(this.request, name);
     }
     
-}
-
-interface ParsedUrl {
-    protocol: string,
-    host: string,
-    hash: string,
-    query: string,
-    additionalQuery: string,
-    pathname: string
 }

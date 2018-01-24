@@ -32,7 +32,7 @@ export default class Behavior {
      * {eventName: handler, ...}
      *
      */
-    events(): object {
+    public events(): any {
         return {};
     }
     
@@ -41,10 +41,10 @@ export default class Behavior {
      *
      * @param {Component} component 组件
      */
-    listen(component: Component) {
+    public listen(component: Component): void {
         this.component = component;
         
-        var events = this.events();
+        let events = this.events();
         
         for(let eventName in events) {
             this.component.on(eventName, events[eventName]);
@@ -54,16 +54,18 @@ export default class Behavior {
     /**
      * 取消监听组件的事件
      */
-    unListen() {
-        if(null !== this.component) {
-            var events = this.events();
-            
-            for(let eventName in events) {
-                this.component.off(eventName, events[eventName]);
-            }
-            
-            this.component = null;
+    public unListen(): void {
+        if(null === this.component) {
+            return;
         }
+
+        let events = this.events();
+        
+        for(let eventName in events) {
+            this.component.off(eventName, events[eventName]);
+        }
+        
+        this.component = null;
     }
     
 }
