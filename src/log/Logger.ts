@@ -63,24 +63,23 @@ export default class Logger {
     /**
      * constructor
      */
-    constructor() {
+    constructor(settings) {
         this.messages = [];
         
         this.flushInterval = 10;
         
         this.targets = [];
         
-        if(undefined === Candy.app['log'] || undefined === Candy.app['log']['targets']) {
+        if(undefined === settings || undefined === settings.targets) {
             throw new InvalidConfigException('No log targets found');
         }
-        if(undefined !== Candy.app['log']['flushInterval']) {
-            this.flushInterval = Candy.app['log']['flushInterval'];
+        if(undefined !== settings.flushInterval) {
+            this.flushInterval = settings.flushInterval;
         }
-        
-        for(let target in Candy.app['log']['targets']) {
-            if(undefined !== Candy.app['log']['targets'][target]['class']) {
-                let clazz = <ImplTarget>Candy.createObject(Candy.app['log']['targets'][target]['class'],
-                    Candy.app['log']['targets'][target]);
+        for(let target in settings.targets) {
+            if(undefined !== settings.targets[target]['class']) {
+                let clazz = Candy.createObject(settings.targets[target]['class'],
+                    settings.targets[target]);
                 clazz.on(clazz.EVENT_FLUSH, clazz);
                 
                 this.targets.push(clazz);
@@ -95,10 +94,20 @@ export default class Logger {
      */
     public static getLogger(): Logger {
         if(null === Logger._logger) {
-            Logger._logger = new Logger();
+            Logger._logger = new Logger(Candy.app['log']);
         }
         
         return Logger._logger;
+    }
+
+    /**
+     * 创建新日志对象
+     *
+     * @param {any} settings
+     * @return {Logger}
+     */
+    public static newInstance(settings): Logger {
+        return new Logger(settings);
     }
     
     /**

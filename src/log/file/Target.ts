@@ -30,31 +30,35 @@ import TimeHelper from '../../helpers/TimeHelper';
 export default class Target extends ImplTarget {
     
     /**
+     * @property {any} config 配置
+     */
+    public config: any;
+
+    /**
+     * @property {String} fileExtension
+     */
+    public fileExtension: string;
+
+    /**
      * @property {String} logPath 日志路径
      */
     public logPath: string;
-
-    /**
-     * @property {String} logFile 日志文件名
-     */
-    public logFile: string;
 
     /**
      * constructor
      */
     constructor(config: any) {
         super();
+
+        this.config = config;
+        
+        this.fileExtension = undefined === config.fileExtension
+            ? '.log'
+            : config.fileExtension;
         
         this.logPath = undefined === config.logPath
             ? Candy.getPathAlias('@runtime/logs')
             : config.logPath;
-        
-        this.logFile = this.generateTimeLogFile();
-        
-        // 目录不存在就创建
-        if(!fs.existsSync(this.logPath)) {
-            FileHelper.createDirectorySync(this.logPath);
-        }
     }
     
     /**
@@ -62,17 +66,40 @@ export default class Target extends ImplTarget {
      */
     public flush(messages: any[]): void {
         let msg = this.formatMessage(messages);
-        let file = this.logPath + '/' + this.logFile;
+        let file = this.generateFile();
         
-        fs.appendFile(file, msg, Candy.app.encoding, (err) => {});
+        // 检查目录
+        fs.access(this.logPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
+            if(null === err) {
+                fs.appendFile(file, msg, Candy.app.encoding, (err) => {});
+                
+                return;
+            }
+            
+            FileHelper.createDirectory(this.logPath, 0o777, (err) => {
+                fs.appendFile(file, msg, Candy.app.encoding, (err) => {});
+            });
+        });
     }
     
     /**
      * 生成日志文件名
      */
-    private generateTimeLogFile(): string {
-        let date = new Date();
-        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + this.fileExtension;
+    generateFile(): string {
+        if(undefined !== this.config.logFile) {
+            return this.logPath + '/' + this.config.logFile;
+        }
+        
+        var date = new Date();
+        
+        return this.logPath
+            + '/'
+            + date.getFullYear()
+            + '-'
+            + (date.getMonth() + 1)
+            + '-'
+            + date.getDate()
+            + this.fileExtension;
     }
     
     /**
