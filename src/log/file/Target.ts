@@ -85,7 +85,7 @@ export default class Target extends ImplTarget {
     /**
      * 生成日志文件名
      */
-    generateFile(): string {
+    private generateFile(): string {
         if(undefined !== this.config.logFile) {
             return this.logPath + '/' + this.config.logFile;
         }
