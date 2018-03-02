@@ -34,7 +34,7 @@ export default class CandyJs {
      * @property {CoreApp} app 配置信息
      */
     public app: CoreApp;
-    
+
     /**
      * constructor
      *
@@ -44,29 +44,29 @@ export default class CandyJs {
         if(undefined === config) {
             throw new InvalidConfigException('The app config is required');
         }
-        
+
         this.config = config;
         this.server = null;
         this.app = new WebApp(config);
     }
-    
+
     // web
     public requestListenerWeb(req: http.ServerRequest, res: http.ServerResponse) {
         try {
             this.app.requestListener(req, res);
-            
+
         } catch(e) {
             this.app.handlerException(res, e);
         }
     }
-    
+
     // handler
     public handler(req: http.ServerRequest, res: http.ServerResponse) {
         Hook.getInstance().trigger(req, res, () => {
             this.requestListenerWeb(req, res);
         });
     }
-    
+
     /**
      * 获取 http server
      *
@@ -75,7 +75,7 @@ export default class CandyJs {
     public getServer(): http.Server {
         return http.createServer(this.handler.bind(this));
     }
-    
+
     /**
      * listen
      *
@@ -94,5 +94,5 @@ export default class CandyJs {
         this.server = this.getServer();
         this.server.listen(port, callback);
     }
-    
+
 }

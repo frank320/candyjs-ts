@@ -9,7 +9,7 @@ import StringHelper from './helpers/StringHelper';
  * 辅助类
  */
 export default class Candy {
-    
+
     /**
      * @property {CoreApp} app 应用实例
      */
@@ -24,7 +24,7 @@ export default class Candy {
      * @property {String} fileExtention 默认文件扩展名
      */
     public static fileExtention: string = '.js';
-    
+
     /**
      * @ 别名路径转换真实路径
      *
@@ -47,7 +47,7 @@ export default class Candy {
 
         return '';
     }
-    
+
     /**
      * 设置路径别名
      *
@@ -61,13 +61,13 @@ export default class Candy {
 
         if(null === path) {
             delete Candy.pathAliases[alias];
-            
+
             return;
         }
-        
+
         Candy.pathAliases[alias] = StringHelper.rTrimChar(path, '/');
     }
-    
+
     /**
      * 创建对象 系统类路径约定以 y 开头 应用类以项目目录开头
      *
@@ -84,30 +84,30 @@ export default class Candy {
     public static createObject(clazz: any, ...params: any[]): any {
         let realClass = '';
         let properties = null;
-        
+
         if('string' === typeof clazz) {
             realClass = Candy.getPathAlias('@' + clazz);
-            
+
         } else if('object' === typeof clazz && undefined !== clazz['class']) {
             realClass = Candy.getPathAlias('@' + clazz['class']);
-            
+
             properties = Candy.config({}, clazz);
             delete properties['class'];
         }
-        
+
         // 文件不存在抛出异常
         // todo
-        
+
         let ClassName = require(realClass + Candy.fileExtention);
         let instance = new ClassName(...params);
-        
+
         if(null !== properties) {
             Candy.config(instance, properties);
         }
-        
+
         return instance;
     }
-    
+
     /**
      * 导入一个类文件
      *
@@ -115,13 +115,13 @@ export default class Candy {
      */
     public static include(clazz: string): any {
         let realClass: string = Candy.getPathAlias('@' + clazz);
-        
+
         // 文件不存在抛出异常
         // todo
-        
+
         return require(realClass + Candy.fileExtention);
     }
-    
+
     /**
      * 对象配置
      *
@@ -133,9 +133,9 @@ export default class Candy {
         for(let key in properties) {
             object[key] = properties[key];
         }
-        
+
         return object;
     }
-    
+
 }
 

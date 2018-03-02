@@ -10,7 +10,7 @@ var fs = require('fs');
  * 文件处理
  */
 export default class FileHelper {
-    
+
     /**
      * 获取 dirname
      *
@@ -19,10 +19,10 @@ export default class FileHelper {
      */
     static getDirname(dir: string): string {
         dir = dir.replace(/\\/g, '/').replace(/\/[^\/]*\/?$/, '');
-        
+
         return '' === dir ? '/' : dir;
     }
-    
+
     /**
      * 转化正常路径
      *
@@ -37,29 +37,29 @@ export default class FileHelper {
      */
     static normalizePath(path: string, directorySeparator: string = '/'): string {
         let ret: string[] = [];
-        
+
         path = path.replace(/\\+/g, directorySeparator);
         if(directorySeparator === path.charAt(path.length - 1)) {
             path = path.substring(0, path.length - 1);
         }
-        
+
         path = path.replace(/\/+/g, directorySeparator);
-        
+
         for(let arr = path.split(directorySeparator), len=arr.length, i=0; i<len; i++) {
             if('.' === arr[i]) {
                 continue;
-                
+
             } else if('..' === arr[i] && ret.length > 0) {
                 ret.pop();
-                
+
             } else {
                 ret.push(arr[i]);
             }
         }
-        
+
         return ret.join('/');
     }
-    
+
     /**
      * 创建文件夹
      *
@@ -73,14 +73,14 @@ export default class FileHelper {
                 null !== callback && callback();
                 return true;
             }
-            
+
             let parentDir = FileHelper.getDirname(dir);
             FileHelper.createDirectory(parentDir, mode, () => {
                 fs.mkdir(dir, mode, callback);
             });
         });
     }
-    
+
     /**
      * 同步创建文件夹
      *
@@ -92,14 +92,14 @@ export default class FileHelper {
         if(fs.existsSync(dir)) {
             return true;
         }
-        
+
         if(FileHelper.createDirectorySync(FileHelper.getDirname(dir))) {
             fs.mkdirSync(dir, mode);
         }
-        
+
         return true;
     }
-    
+
     /**
      * 文件是否存在
      *
@@ -109,5 +109,5 @@ export default class FileHelper {
     static existsSync(path: string): boolean {
         return fs.existsSync(path);
     }
-    
+
 }

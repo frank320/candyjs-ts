@@ -10,21 +10,21 @@ export default class Event {
 
     /**
      * @property {Object} handlers
-     * 
+     *
      * {
      *     'eventName': [fn1, fn2...]
      *     'eventName2': [fn1, fn2...]
      * }
      */
     public handlers: any;
-    
+
     /**
      * constructor
      */
     constructor() {
         this.handlers = {};
     }
-    
+
     /**
      * 注册事件处理
      *
@@ -35,10 +35,10 @@ export default class Event {
         if(undefined === this.handlers[eventName]) {
             this.handlers[eventName] = [];
         }
-        
+
         this.handlers[eventName].push(handler);
     }
-    
+
     /**
      * 注销事件处理
      *
@@ -49,7 +49,7 @@ export default class Event {
         if(undefined !== this.handlers[eventName]) {
             if(undefined === handler) {
                 delete this.handlers[eventName];
-                
+
             } else {
                 for(let i=0,len=this.handlers[eventName].length; i<len; i++) {
                     if(handler === this.handlers[eventName][i]) {
@@ -59,7 +59,7 @@ export default class Event {
             }
         }
     }
-    
+
     /**
      * 触发
      *
@@ -74,7 +74,7 @@ export default class Event {
             }
         }
     }
-    
+
     /**
      * 触发
      *
@@ -88,5 +88,5 @@ export default class Event {
             }
         }
     }
-    
+
 }

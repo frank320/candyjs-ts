@@ -8,7 +8,7 @@ import * as http from 'http';
  * server request
  */
 export default class Request {
-    
+
     public request: http.ServerRequest;
 
     protected _scriptFile: string;
@@ -22,7 +22,7 @@ export default class Request {
         this.request = request;
         this._scriptFile = '';
     }
-    
+
     /**
      * 返回入口文件名
      *
@@ -32,8 +32,8 @@ export default class Request {
         if (null === this._scriptFile) {
             this._scriptFile = process.mainModule.filename;
         }
-        
+
         return this._scriptFile;
     }
-    
+
 }

@@ -10,7 +10,7 @@ import * as http from 'http';
 export default class Response {
 
     public response: http.ServerResponse;
-    
+
     /**
      * constructor
      *
@@ -19,12 +19,12 @@ export default class Response {
     constructor(response: http.ServerResponse) {
         this.response = response;
     }
-    
+
     /**
      * sends data to client and end response
      *
      * @param {String | Buffer} content
      */
     public send(content: string | Buffer): void {}
-    
+
 }

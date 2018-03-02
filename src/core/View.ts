@@ -17,14 +17,14 @@ export default class View {
      * @property {Object} context 上下文环境
      */
     public context: any;
-    
+
     /**
      * constructor
      */
     constructor(context: any) {
         this.context = context;
     }
-    
+
     /**
      * 获取视图文件路径
      *
@@ -34,7 +34,7 @@ export default class View {
     public getTemplateFilePath(view: string): string {
         return '';
     }
-    
+
     /**
      * 读取视图文件
      *
@@ -42,7 +42,7 @@ export default class View {
      * @param {any} callback 回调函数
      */
     public getTemplate(view: string, callback: any): void {}
-    
+
     /**
      * 从指定路径读取视图文件
      *
@@ -50,5 +50,5 @@ export default class View {
      * @param {any} callback 回调函数
      */
     public getTemplateFromPath(path: string, callback: any): void {}
-    
+
 }

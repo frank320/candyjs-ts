@@ -10,7 +10,7 @@ import Event from '../core/Event';
  * Log event
  */
 export default class LogEvent extends Event {
-    
+
     /**
      * 触发事件
      *
@@ -24,5 +24,5 @@ export default class LogEvent extends Event {
             }
         }
     }
-    
+
 }

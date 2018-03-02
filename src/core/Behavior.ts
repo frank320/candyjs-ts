@@ -14,7 +14,7 @@ import Component from './Component';
  * 行为类还能够监听组件的事件并作出响应
  */
 export default class Behavior {
-    
+
      /**
      * @property {Component} component 拥有行为的组件
      */
@@ -23,7 +23,7 @@ export default class Behavior {
     constructor() {
         this.component = null;
     }
-    
+
     /**
      * 声明要监听的组件的事件和对应事件的处理程序
      *
@@ -35,7 +35,7 @@ export default class Behavior {
     public events(): any {
         return {};
     }
-    
+
     /**
      * 监听组件的事件
      *
@@ -43,14 +43,14 @@ export default class Behavior {
      */
     public listen(component: Component): void {
         this.component = component;
-        
+
         let events = this.events();
-        
+
         for(let eventName in events) {
             this.component.on(eventName, events[eventName]);
         }
     }
-    
+
     /**
      * 取消监听组件的事件
      */
@@ -60,12 +60,12 @@ export default class Behavior {
         }
 
         let events = this.events();
-        
+
         for(let eventName in events) {
             this.component.off(eventName, events[eventName]);
         }
-        
+
         this.component = null;
     }
-    
+
 }

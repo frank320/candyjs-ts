@@ -13,14 +13,14 @@ import CoreRequest from '../core/Request';
  * 请求
  */
 export default class Request extends CoreRequest {
-    
+
     /**
      * constructor
      */
     constructor(request: http.ServerRequest) {
         super(request);
     }
-    
+
     /**
      * 解析 request url
      *
@@ -29,7 +29,7 @@ export default class Request extends CoreRequest {
      */
     public static parseUrl(request: http.ServerRequest): any {
         let obj = url.parse(request.url);
-        
+
         return {
             protocol: obj.protocol,
             host: obj.host,
@@ -39,7 +39,7 @@ export default class Request extends CoreRequest {
             pathname: obj.pathname
         };
     }
-    
+
     /**
      * 获取客户端 ip
      *
@@ -51,38 +51,38 @@ export default class Request extends CoreRequest {
         if(undefined !== forward) {
             return (<string>forward).substring(0, forward.indexOf(','));
         }
-        
+
         return request.connection.remoteAddress;
     }
-    
+
     /**
      * 静态方法 获取 get 参数
-     * 
+     *
      * @param {Object} request 请求对象
      * @param {String} param 参数名
      * @return {any}
      */
     public static getQueryString(request: http.ServerRequest, param: string): any {
         let parsed = Request.parseUrl(request);
-        
+
         // 查找参数
         if(null !== parsed.query &&
             (0 === parsed.query.indexOf(param) ||
                 parsed.query.indexOf('&' + param) > 0)) {
-            
+
             return querystring.parse(parsed.query)[param];
         }
-        
+
         if(null !== parsed.additionalQuery) {
             return parsed.additionalQuery[param];
         }
 
         return null;
     }
-    
+
     /**
      * 静态方法 获取 post 参数
-     * 
+     *
      * @param {http.ServerRequest} request 请求对象
      * @param {String} param 参数名
      * @return {any}
@@ -91,12 +91,12 @@ export default class Request extends CoreRequest {
         if(undefined === request['body']) {
             return null;
         }
-        
+
         return request['body'][param];
     }
-    
+
     /**
-     * 
+     *
      * @param {http.ServerRequest} request 请求对象
      * @param {String} name cookie name
      * @return {String}
@@ -104,7 +104,7 @@ export default class Request extends CoreRequest {
     public static getCookie(request: http.ServerRequest, name: string): string {
         return Cookie.getCookie(request, name);
     }
-    
+
     /**
      * 获取 get 参数
      *
@@ -113,22 +113,22 @@ export default class Request extends CoreRequest {
      */
     public getQueryString(param: string): any {
         var parsed = Request.parseUrl(this.request);
-        
+
         // 查找参数
         if(null !== parsed.query &&
             (0 === parsed.query.indexOf(param) ||
                 parsed.query.indexOf('&' + param) > 0)) {
-            
+
             return querystring.parse(parsed.query)[param];
         }
-        
+
         if(null !== parsed.additionalQuery) {
             return parsed.additionalQuery[param];
         }
 
         return null;
     }
-    
+
     /**
      * 设置 get 参数
      *
@@ -139,10 +139,10 @@ export default class Request extends CoreRequest {
         if(undefined === this.request['additionalQuery']) {
             this.request['additionalQuery'] = {};
         }
-        
+
         this.request['additionalQuery'][param] = value;
     }
-    
+
     /**
      * 获取 post 参数
      *
@@ -153,10 +153,10 @@ export default class Request extends CoreRequest {
         if(undefined === this.request['body']) {
             return null;
         }
-        
+
         return this.request['body'][param];
     }
-    
+
     /**
      * 获取 cookie
      *
@@ -166,5 +166,5 @@ export default class Request extends CoreRequest {
     public getCookie(name: string): string {
         return Cookie.getCookie(this.request, name);
     }
-    
+
 }

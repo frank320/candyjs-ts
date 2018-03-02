@@ -12,7 +12,7 @@ import StringHelper from '../helpers/StringHelper';
  * @see https://tools.ietf.org/html/rfc1738
  */
 export default class URL {
-    
+
     /**
      * @property {Object} request
      */
@@ -24,7 +24,7 @@ export default class URL {
     constructor(request: http.ServerRequest) {
         this.request = request;
     }
-    
+
     /**
      * 获取引用网址
      *
@@ -34,10 +34,10 @@ export default class URL {
         if(undefined !== this.request.headers['referer']) {
             return <string>this.request.headers['referer'];
         }
-        
+
         return '';
     }
-    
+
     /**
      * 获取 URI 协议和主机部分
      *
@@ -48,12 +48,12 @@ export default class URL {
                 || this.request.headers['x-forwarded-protocol'] === 'https'
             ? 'https'
             : 'http';
-        
+
         let host = protocol + '://' + this.request.headers.host;
-        
+
         return host;
     }
-    
+
     /**
      * 获取当前网址 不包含锚点部分
      *
@@ -62,7 +62,7 @@ export default class URL {
     public getCurrent(): string {
         return this.getHostInfo() + this.request.url;
     }
-    
+
     /**
      * 创建一个 url
      *
@@ -82,20 +82,20 @@ export default class URL {
         let host = this.getHostInfo();
         let query = '';
         let anchor = '';
-        
+
         url = host + '/' + url;
-        
+
         if(null !== params) {
             if(undefined !== params['#']) {
                 anchor = params['#'];
                 delete params['#'];
             }
-            
+
             for(let k in params) {
                 query = query + k + '=' + params[k] + '&';
             }
             query = StringHelper.rTrimChar(query, '&');
-            
+
             if('' !== query) {
                 url = url + '?' + query;
             }
@@ -103,8 +103,8 @@ export default class URL {
                 url = url + '#' + anchor;
             }
         }
-        
+
         return url;
     }
-    
+
 }

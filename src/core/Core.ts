@@ -9,7 +9,7 @@ import StringHelper from '../helpers/StringHelper';
  * MVC 基类
  */
 export default class Core {
-    
+
     /**
      * @property {String | Object} interceptAll 拦截所有路由
      *
@@ -75,7 +75,7 @@ export default class Core {
         this.defaultControllerNamespace = 'app/controllers';
         this.defaultControllerId = 'index';
     }
-    
+
     /**
      * 创建控制器实例
      *
@@ -98,24 +98,24 @@ export default class Core {
          *
          */
         let subRoute: string = '';
-        
+
         route = StringHelper.lTrimChar(route, '/');
-        
+
         // route eg. index/index
         if('' === route || '/' === route) {
             route = this.defaultRoute;
         }
-        
+
         // 检测非法
         if(!/^[\w\-\/]+$/.test(route) || route.indexOf('//') >= 0) {
             return null;
         }
-        
+
         // 拦截路由
         if(null !== this.interceptAll) {
             return Candy.createObject(this.interceptAll);
         }
-        
+
         // 解析路由
         // 目录前缀或模块 id
         let id: string = '';
@@ -124,62 +124,62 @@ export default class Core {
             id = route.substring(0, pos);
             route = route.substring(pos + 1);
             controllerId = route;
-            
+
         } else {
             id = route;
             route = '';
         }
-        
+
         // 保存前缀
         subRoute = id;
-        
+
         // 保存当前控制器标识
         if( -1 !== (pos = route.lastIndexOf('/')) ) {
             subRoute = subRoute + '/' + route.substring(0, pos);
-            
+
             controllerId = route.substring(pos + 1);
         }
         if('' === controllerId) {
             controllerId = this.defaultControllerId;
         }
-        
+
         // 搜索顺序 用户配置 -> 模块控制器 -> 普通控制器
         // 模块没有前缀目录
         let clazz: any = null;
         if(null !== this.routesMap && undefined !== this.routesMap[id]) {
-            
+
             return Candy.createObject(this.routesMap[id], {
                 moduleId: moduleId,
                 controllerId: controllerId,
                 subRoute: subRoute
             });
         }
-        
+
         if(null !== this.modules && undefined !== this.modules[id]) {
             moduleId = id;
-            
+
             clazz = StringHelper.trimChar(this.modules[id], '/')
                 + '/controllers/'
                 + StringHelper.ucFirst(controllerId) + 'Controller';
-            
+
             return Candy.createObject(clazz, {
                 moduleId: moduleId,
                 controllerId: controllerId,
                 subRoute: subRoute
             });
         }
-        
+
         clazz = this.defaultControllerNamespace
             + '/'
             + subRoute
             + '/'
             + StringHelper.ucFirst(controllerId) + 'Controller';
-        
+
         return Candy.createObject(clazz, {
             moduleId: moduleId,
             controllerId: controllerId,
             subRoute: subRoute
         });
     }
-    
+
 }

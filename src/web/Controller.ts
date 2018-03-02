@@ -10,7 +10,7 @@ import View from './View';
  * 控制器
  */
 export default class Controller extends CoreController {
-    
+
     /**
      * @property {String} viewHandler
      */
@@ -26,11 +26,11 @@ export default class Controller extends CoreController {
      */
     constructor(context) {
         super(context);
-        
+
         this.viewHandler = 'candy/web/View';
         this.view = null;
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -38,10 +38,10 @@ export default class Controller extends CoreController {
         if(null !== this.view) {
             return this.view;
         }
-        
+
         this.view = <View>Candy.createObject(this.viewHandler, this.context);
-        
+
         return this.view;
     }
-    
+
 }

@@ -34,7 +34,7 @@ export default class Response extends CoreResponse {
         '101': 'Switching Protocols',
         '102': 'Processing',
         '118': 'Connection timed out',
-        
+
         // Success
         '200': 'OK',
         '201': 'Created',
@@ -47,7 +47,7 @@ export default class Response extends CoreResponse {
         '208': 'Already Reported',
         '210': 'Content Different',
         '226': 'IM Used',
-        
+
         // Redirection
         '300': 'Multiple Choices',
         '301': 'Moved Permanently',
@@ -59,7 +59,7 @@ export default class Response extends CoreResponse {
         '307': 'Temporary Redirect',
         '308': 'Permanent Redirect',
         '310': 'Too many Redirect',
-        
+
         // Client error
         '400': 'Bad Request',
         '401': 'Unauthorized',
@@ -90,7 +90,7 @@ export default class Response extends CoreResponse {
         '431': 'Request Header Fields Too Large',
         '449': 'Retry With',
         '450': 'Blocked by Windows Parental Controls',
-        
+
         // Server error
         '500': 'Internal Server Error',
         '501': 'Not Implemented',
@@ -139,13 +139,13 @@ export default class Response extends CoreResponse {
      * @property {Array} cookies HTTP cookies
      */
     public cookies: string[];
-    
+
     /**
      * constructor
      */
     constructor(response: http.ServerResponse) {
         super(response);
-        
+
         this.encoding = Candy.app.encoding;
         //this.version = '1.1';
         this.statusCode = 200;
@@ -154,7 +154,7 @@ export default class Response extends CoreResponse {
         this.content = '';
         this.cookies = [];
     }
-    
+
     /**
      * 得到 http status code
      *
@@ -163,7 +163,7 @@ export default class Response extends CoreResponse {
     public getStatusCode(): number {
         return this.statusCode;
     }
-    
+
     /**
      * 设置 http status code
      *
@@ -175,20 +175,20 @@ export default class Response extends CoreResponse {
         if(value < 100 || value >= 600) {
             throw new HttpException('The HTTP status code is invalid');
         }
-        
+
         this.statusCode = value;
-        
+
         if(undefined === text) {
             this.statusText = undefined !== Response.httpStatuses[String(value)] ?
                 Response.httpStatuses[String(value)] : '';
-                
+
         } else {
             this.statusText = text;
         }
-        
+
         return this;
     }
-    
+
     /**
      * 获取 header
      *
@@ -199,10 +199,10 @@ export default class Response extends CoreResponse {
         if(undefined !== this.headers[name]) {
             return this.headers[name];
         }
-        
+
         return null;
     }
-    
+
     /**
      * 设置 header
      *
@@ -212,10 +212,10 @@ export default class Response extends CoreResponse {
      */
     public setHeader(name: string, value: string): Response {
         this.headers[name] = value;
-        
+
         return this;
     }
-    
+
     /**
      * 获取实体内容
      *
@@ -224,7 +224,7 @@ export default class Response extends CoreResponse {
     public getContent(): string | Buffer {
         return this.content;
     }
-    
+
     /**
      * 设置实体内容
      *
@@ -233,10 +233,10 @@ export default class Response extends CoreResponse {
      */
     public setContent(content: string | Buffer): Response {
         this.content = content;
-        
+
         return this;
     }
-    
+
     /**
      * 设置一条 cookie
      *
@@ -249,7 +249,7 @@ export default class Response extends CoreResponse {
         if(undefined === options) {
             options = {};
         }
-        
+
         var cookie = new Cookie(name,
             encodeURIComponent(value),
             options['expires'],
@@ -257,12 +257,12 @@ export default class Response extends CoreResponse {
             options['domain'],
             options['secure'],
             options['httpOnly']);
-        
+
         this.cookies.push(cookie.toString());
-        
+
         return this;
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -270,13 +270,13 @@ export default class Response extends CoreResponse {
         if(undefined !== content) {
             this.setContent(content);
         }
-        
+
         this.sendHeaders();
         this.sendContent();
-        
+
         this.response.end();
     }
-    
+
     /**
      * 发送 header
      */
@@ -284,25 +284,25 @@ export default class Response extends CoreResponse {
         if((this.response).headersSent) {
             return;
         }
-        
+
         for(let name in this.headers) {
             this.response.setHeader(name, this.headers[name]);
         }
-        
+
         if(this.cookies.length > 0) {
             Cookie.setCookie(<http.ServerResponse>this.response, this.cookies);
         }
-        
+
         this.response.writeHead(this.statusCode, this.statusText);
     }
-    
+
     /**
      * 发送内容
      */
     public sendContent(): void {
         this.response.write(this.content, this.encoding);
     }
-    
+
     /**
      * 重定向
      *
@@ -311,10 +311,10 @@ export default class Response extends CoreResponse {
      */
     public redirect(url: string, statusCode: number = 302): void {
         this.setHeader('Location', url);
-        
+
         this.setStatusCode(statusCode);
-        
+
         this.send();
     }
-    
+
 }

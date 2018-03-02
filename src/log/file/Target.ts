@@ -15,6 +15,7 @@ import TimeHelper from '../../helpers/TimeHelper';
 /**
  * 文件日志
  *
+ * ```
  * 'log': {
  *     'targets': {
  *         'file': {
@@ -25,10 +26,11 @@ import TimeHelper from '../../helpers/TimeHelper';
  *     },
  *     'flushInterval': 10
  * }
+ * ```
  *
  */
 export default class Target extends ImplTarget {
-    
+
     /**
      * @property {any} config 配置
      */
@@ -51,37 +53,37 @@ export default class Target extends ImplTarget {
         super();
 
         this.config = config;
-        
+
         this.fileExtension = undefined === config.fileExtension
             ? '.log'
             : config.fileExtension;
-        
+
         this.logPath = undefined === config.logPath
             ? Candy.getPathAlias('@runtime/logs')
             : config.logPath;
     }
-    
+
     /**
      * @inheritdoc
      */
     public flush(messages: any[]): void {
         let msg = this.formatMessage(messages);
         let file = this.generateFile();
-        
+
         // 检查目录
         fs.access(this.logPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
             if(null === err) {
                 fs.appendFile(file, msg, Candy.app.encoding, (err) => {});
-                
+
                 return;
             }
-            
+
             FileHelper.createDirectory(this.logPath, 0o777, (err) => {
                 fs.appendFile(file, msg, Candy.app.encoding, (err) => {});
             });
         });
     }
-    
+
     /**
      * 生成日志文件名
      */
@@ -89,9 +91,9 @@ export default class Target extends ImplTarget {
         if(undefined !== this.config.logFile) {
             return this.logPath + '/' + this.config.logFile;
         }
-        
+
         var date = new Date();
-        
+
         return this.logPath
             + '/'
             + date.getFullYear()
@@ -101,7 +103,7 @@ export default class Target extends ImplTarget {
             + date.getDate()
             + this.fileExtension;
     }
-    
+
     /**
      * 格式化内容
      */
@@ -115,7 +117,7 @@ export default class Target extends ImplTarget {
                 + messages[i][0]
                 + '\n';
         }
-        
+
         return msg;
     }
 }

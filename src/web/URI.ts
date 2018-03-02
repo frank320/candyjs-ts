@@ -49,7 +49,7 @@ export default class URI {
      * @property {String} path 资源路径
      */
     public path: string;
-    
+
     /**
      * @property {String} query 请求参数
      */
@@ -82,7 +82,7 @@ export default class URI {
         this.path = '';
         this.query = '';
         this.fragment = '';
-        
+
         this.uriRegExp = new RegExp([
             // (scheme)
             '(http|https)?',
@@ -99,7 +99,7 @@ export default class URI {
             // #(fragment)
             '(?:#(.*))?'
         ].join(''));
-        
+
         this.uriRegExpKeys = [
             'source',
             'scheme',
@@ -112,7 +112,7 @@ export default class URI {
             'fragment'
         ];
     }
-    
+
     /**
      * 创建一个 uri
      *
@@ -127,7 +127,7 @@ export default class URI {
         path: string = '', query: string = '', fragment: string = ''): string {
 
         let uri = '';
-        
+
         if('' !== scheme) {
             uri += scheme + '://';
         }
@@ -138,7 +138,7 @@ export default class URI {
             if('/' !== path.charAt(0)) {
                 path = '/' + path;
             }
-            
+
             uri += path;
         }
         if('' !== query) {
@@ -147,10 +147,10 @@ export default class URI {
         if('' !== fragment) {
             uri += '#' + fragment;
         }
-        
+
         return uri;
     }
-    
+
     /**
      * 设置 uri
      *
@@ -158,7 +158,7 @@ export default class URI {
      */
     public setURI(uri: string): void {
         let ret = this.parseUrl(uri);
-        
+
         if(undefined !== ret['scheme']) {
             this.scheme = ret['scheme'];
         }
@@ -184,7 +184,7 @@ export default class URI {
             this.fragment = ret['fragment'];
         }
     }
-    
+
     /**
      * 解析 url
      *
@@ -193,18 +193,18 @@ export default class URI {
      */
     public parseUrl(url: string): any {
         let ret = {};
-        
+
         let matches = url.match(this.uriRegExp);
-        
+
         if(null !== matches) {
             for(let i=0,len=this.uriRegExpKeys.length; i<len; i++) {
                 ret[this.uriRegExpKeys[i]] = matches[i];
             }
         }
-        
+
         return ret;
     }
-    
+
     /**
      * 解析 URI 的 authority 部分
      *
@@ -212,20 +212,20 @@ export default class URI {
      */
     public getAuthority(): string {
         let authority = '';
-        
+
         if('' !== this.user) {
             authority += this.user + ':' + this.password + '@';
         }
-        
+
         authority += this.host;
-        
+
         if('' !== this.port) {
             authority += ':' + this.port;
         }
-        
+
         return authority;
     }
-    
+
     /**
      * 转为字符串
      *
@@ -240,5 +240,5 @@ export default class URI {
             this.fragment
         );
     }
-    
+
 }

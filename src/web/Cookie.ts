@@ -10,7 +10,7 @@ import * as http from 'http';
  * name=value; Expires=expires; Path=path; Domain=domain[; secure][; httponly]
  */
 export default class Cookie {
-    
+
     public name: string;
     public value: string;
     public expires: number;
@@ -41,10 +41,10 @@ export default class Cookie {
         this.secure = secure;
         this.httpOnly = httpOnly;
     }
-    
+
     public toString(): string {
         let ret: string[] = [this.name + '=' + this.value];
-        
+
         if(0 !== this.expires) {
             ret.push('Expires=' + new Date(this.expires).toUTCString());
         }
@@ -58,10 +58,10 @@ export default class Cookie {
         if(this.httpOnly) {
             ret.push('HttpOnly');
         }
-        
+
         return ret.join('; ');
     }
-    
+
     /**
      * 获取 cookie
      *
@@ -73,11 +73,11 @@ export default class Cookie {
         if(undefined === request.headers['cookie']) {
             return null;
         }
-        
+
         let ret: string = '';
         let tmp: string[] = null;
         let list: string[] = (<string>request.headers['cookie']).split('; ');
-        
+
         for(let i=0,len=list.length; i<len; i++) {
             tmp = list[i].split('=');
 
@@ -89,7 +89,7 @@ export default class Cookie {
 
         return ret;
     }
-    
+
     /**
      * 设置 cookie
      *
@@ -99,5 +99,5 @@ export default class Cookie {
     public static setCookie(response: http.ServerResponse, cookies: any): void {
         response.setHeader('Set-Cookie', cookies);
     }
-    
+
 }

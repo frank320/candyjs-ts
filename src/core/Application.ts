@@ -10,7 +10,7 @@ import InvalidConfigException from './InvalidConfigException';
  * 应用基类
  */
 export default class Application extends Core {
-    
+
     /**
      * @property {String} encoding 编码
      */
@@ -33,16 +33,16 @@ export default class Application extends Core {
      */
     constructor(config: any) {
         super();
-        
+
         this.encoding = 'UTF-8';
         this.debug = false;
         this.exceptionHandler = '';
-        
+
         Candy.app = this;
         this.init(config);
         Candy.config(this, config);
     }
-    
+
     /**
      * 初始化应用
      *
@@ -53,33 +53,33 @@ export default class Application extends Core {
         if(undefined === config.id) {
             throw new InvalidConfigException('The "id" configuration is required');
         }
-        
+
         if(undefined !== config.appPath) {
             this.setAppPath(config.appPath);
             delete config.appPath;
-            
+
         } else {
             throw new InvalidConfigException('The "appPath" configuration is required');
         }
-        
+
         if(undefined !== config.runtimePath) {
             this.setRuntimePath(config.runtimePath);
             delete config.runtimePath;
-            
+
         } else {
             // set "app/runtime"
             this.setRuntimePath( this.getAppPath() + '/runtime');
         }
-        
+
         if(undefined !== config.rootPath) {
             this.setRootPath(config.rootPath);
             delete config.rootPath;
-            
+
         } else {
             this.setRootPath(process.env['PWD']);
         }
     }
-    
+
     /**
      * 设置应用路径
      *
@@ -88,7 +88,7 @@ export default class Application extends Core {
     public setAppPath(path: string) {
         Candy.setPathAlias('@app', path);
     }
-    
+
     /**
      * 得到应用目录
      *
@@ -97,7 +97,7 @@ export default class Application extends Core {
     public getAppPath(): string {
         return Candy.getPathAlias('@app');
     }
-    
+
     /**
      * 设置 runtime 路径
      *
@@ -106,7 +106,7 @@ export default class Application extends Core {
     public setRuntimePath(path: string) {
         Candy.setPathAlias('@runtime', path);
     }
-    
+
     /**
      * 得到 runtime 目录
      *
@@ -115,7 +115,7 @@ export default class Application extends Core {
     public getRuntimePath(): string {
         return Candy.getPathAlias('@runtime');
     }
-    
+
     /**
      * 设置 root 路径
      *
@@ -124,7 +124,7 @@ export default class Application extends Core {
     public setRootPath(path: string) {
         Candy.setPathAlias('@root', path);
     }
-    
+
     /**
      * 得到 root 目录
      *
@@ -133,7 +133,7 @@ export default class Application extends Core {
     public getRootPath(): string {
         return Candy.getPathAlias('@root');
     }
-    
+
     /**
      * handler request
      *
@@ -141,7 +141,7 @@ export default class Application extends Core {
      * @param {Object} response
      */
     public requestListener(request: any, response: any) {}
-    
+
     /**
      * 异常处理
      *
@@ -149,5 +149,5 @@ export default class Application extends Core {
      * @param {Exception} exception 异常类
      */
     public handlerException(response: any, exception: Error) {}
-    
+
 }

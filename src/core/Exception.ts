@@ -7,7 +7,7 @@
  * 异常
  */
 export default class Exception extends Error {
-    
+
     /**
      * constructor
      *
@@ -15,10 +15,10 @@ export default class Exception extends Error {
      */
     constructor(message) {
         super(message);
-        
+
         this.name = this.constructor.name;
     }
-    
+
     /**
      * 获得错误名
      *
@@ -27,5 +27,5 @@ export default class Exception extends Error {
     public getName(): string {
         return this.name;
     }
-    
+
 }

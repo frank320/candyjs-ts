@@ -8,7 +8,7 @@
  * 异常错误处理基类
  */
 export default class ExceptionHandler {
-    
+
     /**
      * 异常处理
      *
@@ -16,5 +16,5 @@ export default class ExceptionHandler {
      * @param {Error} exception 异常类
      */
     handlerException(response: any, exception: Error) {}
-    
+
 }

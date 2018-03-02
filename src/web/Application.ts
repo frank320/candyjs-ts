@@ -15,43 +15,43 @@ import InvalidRouteException from '../core/InvalidRouteException';
  * web 应用
  */
 export default class Application extends CoreApp {
-    
+
     /**
      * @property {String} defaultExceptionHandler 异常处理类
      */
     public defaultExceptionHandler: string;
-    
+
     /**
      * @inheritdoc
      */
     constructor(config: any) {
         super(config);
-        
+
         this.defaultExceptionHandler = 'candy/web/ExceptionHandler';
     }
-    
+
     /**
      * @inheritdoc
      */
     public requestListener(request: http.ServerRequest, response: http.ServerResponse) {
         let route = Request.parseUrl(request).pathname;
-        
+
         let controller: CoreController = this.createController(route);
-        
+
         if(null === controller) {
             throw new InvalidRouteException('The route requested is invalid');
         }
-        
+
         // 是否继承自框架控制器
         if( !(controller instanceof CoreController) ) {
             controller['run'](request, response);
-            
+
             return;
         }
-        
+
         controller.runControllerAction(request, response);
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -59,8 +59,8 @@ export default class Application extends CoreApp {
         let handler = Candy.createObject('' === this.exceptionHandler
             ? this.defaultExceptionHandler
             : this.exceptionHandler);
-        
+
         (<CoreApp>handler).handlerException(response, exception);
     }
-    
+
 }

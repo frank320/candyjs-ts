@@ -7,7 +7,7 @@
  * String Helper
  */
 export default class StringHelper {
-    
+
     /**
      * 查找某字符串在另一个字符串中第 N 次出现的位置
      *
@@ -21,10 +21,10 @@ export default class StringHelper {
         for(let i = 1; i < n; i++) {
             x = str.indexOf(find, x + 1);
         }
-        
+
         return x;
     }
-    
+
     /**
      * 删除两端字符
      *
@@ -39,10 +39,10 @@ export default class StringHelper {
         if(character === str.charAt(str.length - 1)) {
             str = str.substring(0, str.length - 1);
         }
-        
+
         return str;
     }
-    
+
     /**
      * 删除左侧字符
      *
@@ -54,10 +54,10 @@ export default class StringHelper {
         if(character === str.charAt(0)) {
             str = str.substring(1);
         }
-        
+
         return str;
     }
-    
+
     /**
      * 删除右侧字符
      *
@@ -69,10 +69,10 @@ export default class StringHelper {
         if(character === str.charAt(str.length - 1)) {
             str = str.substring(0, str.length - 1);
         }
-        
+
         return str;
     }
-    
+
     /**
      * 首字母大写
      *
@@ -81,10 +81,10 @@ export default class StringHelper {
      */
     public static ucFirst(str: string): string {
         let ret: string = str.charAt(0).toUpperCase();
-        
+
         return ret + str.substring(1);
     }
-    
+
     /**
      * 转化特殊 html 字符到实体
      *
@@ -99,28 +99,28 @@ export default class StringHelper {
             'SINGLE_QUOTE': 1,
             'DOUBLE_QUOTE': 2
         };
-        
+
         // 放到最前面 防止多次转义
         if(doubleEncode !== false) {
             str = str.replace(/&/g, '&amp;');
         }
-        
+
         str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        
+
         if(flag === OPTIONS.ALL_QUOTES) {
             str = str.replace(/'/g, '&#039;').replace(/"/g, '&quot;');
-            
+
         } else if(flag === OPTIONS.SINGLE_QUOTE) {
             str = str.replace(/'/g, '&#039;');
-            
+
         } else if(flag === OPTIONS.DOUBLE_QUOTE) {
             str = str.replace(/"/g, '&quot;');
-            
+
         }
-        
+
         return str;
     }
-    
+
     /**
      * 过滤 html 标签
      *
@@ -135,19 +135,19 @@ export default class StringHelper {
     public static filterTags(str: string, allowed: string = ''): string {
         let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
         let comments = /<!--[\s\S]*?-->/gi;
-        
+
         str = str.replace(comments, '');
-        
+
         if('' === allowed) {
             return str.replace(tags, '');
         }
-        
+
         allowed = allowed.toLowerCase();
-        
+
         // match 为匹配到的内容  p 为第一个子模式
         return str.replace(tags, (match, p) => {
             return allowed.indexOf('<' + p.toLowerCase() + '>') !== -1 ? match : '';
         });
     }
-    
+
 }

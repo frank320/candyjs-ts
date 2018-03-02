@@ -12,7 +12,7 @@ import ImplTarget from './ImplTarget';
  * 日志
  */
 export default class Logger {
-    
+
     /**
      * Logger instance
      */
@@ -65,11 +65,11 @@ export default class Logger {
      */
     constructor(settings) {
         this.messages = [];
-        
+
         this.flushInterval = 10;
-        
+
         this.targets = [];
-        
+
         if(undefined === settings || undefined === settings.targets) {
             throw new InvalidConfigException('No log targets found');
         }
@@ -80,23 +80,23 @@ export default class Logger {
             if(undefined !== settings.targets[target]['class']) {
                 let clazz = Candy.createObject(settings.targets[target]['class'],
                     settings.targets[target]);
-                clazz.on(clazz.EVENT_FLUSH, clazz);
-                
+                clazz.on(ImplTarget.EVENT_FLUSH, clazz);
+
                 this.targets.push(clazz);
             }
         }
     }
-    
+
     /**
      * 获取日志类实例
-     * 
+     *
      * @return {Logger}
      */
     public static getLogger(): Logger {
         if(null === Logger._logger) {
             Logger._logger = new Logger(Candy.app['log']);
         }
-        
+
         return Logger._logger;
     }
 
@@ -109,7 +109,7 @@ export default class Logger {
     public static newInstance(settings): Logger {
         return new Logger(settings);
     }
-    
+
     /**
      * 记录日志
      *
@@ -118,24 +118,24 @@ export default class Logger {
      */
     public log(message: string, level: number): void {
         this.messages.push([message, level, Date.now()]);
-        
+
         if(this.flushInterval > 0 && this.messages.length >= this.flushInterval) {
             this.flush();
         }
     }
-    
+
     /**
      * 清空 log 并写入目的地
      */
     public flush(): void {
         let messages = this.messages;
         this.messages = [];
-        
+
         for(let target of this.targets) {
-            target.trigger(target.EVENT_FLUSH, messages);
+            target.trigger(ImplTarget.EVENT_FLUSH, messages);
         }
     }
-    
+
     /**
      * Logs a error message
      *
@@ -144,7 +144,7 @@ export default class Logger {
     public error(message: string): void {
         this.log(message, Logger.LEVEL_ERROR);
     }
-    
+
     /**
      * Logs a warning message
      *
@@ -153,7 +153,7 @@ export default class Logger {
     public warning(message: string): void {
         this.log(message, Logger.LEVEL_WARNING);
     }
-    
+
     /**
      * Logs a info message
      *
@@ -162,7 +162,7 @@ export default class Logger {
     public info(message: string): void {
         this.log(message, Logger.LEVEL_INFO);
     }
-    
+
     /**
      * Logs a trace message
      *
@@ -171,7 +171,7 @@ export default class Logger {
     public trace(message: string): void {
         this.log(message, Logger.LEVEL_TRACE);
     }
-    
+
     /**
      * 获取日志级别描述
      *
@@ -199,5 +199,5 @@ export default class Logger {
 
         return name;
     }
-    
+
 }
