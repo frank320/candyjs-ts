@@ -2,15 +2,13 @@
  * @author
  * @license MIT
  */
-'use strict';
-
+import Event from '../core/Event';
 import ITarget from './ITarget';
-import LogEvent from './LogEvent';
 
 /**
  * 日志抽象层
  */
-abstract class ImplTarget extends LogEvent implements ITarget {
+abstract class ImplTarget extends Event implements ITarget {
 
     /**
      * @property {String} EVENT_FLUSH 事件
@@ -26,6 +24,20 @@ abstract class ImplTarget extends LogEvent implements ITarget {
      * @inheritdoc
      */
     public flush(messages: any[]): void {};
+
+    /**
+     * 触发事件
+     *
+     * @param {String} eventName 事件名称
+     * @param {Array} param 日志信息
+     */
+    trigger(eventName: string, param: any[]): void {
+        if(undefined !== this.handlers[eventName]) {
+            for(let handler of this.handlers[eventName]) {
+                handler.flush(param);
+            }
+        }
+    }
 
 }
 
