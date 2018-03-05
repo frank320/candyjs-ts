@@ -2,7 +2,6 @@
  * @author
  * @license MIT
  */
-'use strict';
 
 /**
  * 异常错误处理基类

@@ -2,7 +2,6 @@
  * @author
  * @license MIT
  */
-
 export default class Hook {
 
     /**

@@ -2,8 +2,6 @@
  * @author yu
  * @license http://www.apache.org/licenses/LICENSE-2.0
  */
-'use strict';
-
 import * as fs from 'fs';
 import * as http from 'http';
 

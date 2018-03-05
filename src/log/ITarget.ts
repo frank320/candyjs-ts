@@ -2,7 +2,6 @@
  * @author
  * @license MIT
  */
-'use strict';
 
 /**
  * 日志接口层

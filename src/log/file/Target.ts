@@ -2,8 +2,6 @@
  * @author
  * @license MIT
  */
-'use strict';
-
 import * as fs from 'fs';
 
 import Candy from '../../Candy';

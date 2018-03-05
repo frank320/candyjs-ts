@@ -2,7 +2,6 @@
  * @author
  * @license MIT
  */
-
 import Exception from './Exception';
 
 /**

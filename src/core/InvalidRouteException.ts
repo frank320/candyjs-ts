@@ -2,8 +2,6 @@
  * @author
  * @license MIT
  */
-'use strict';
-
 import Exception from './Exception';
 
 /**

@@ -2,8 +2,6 @@
  * @author
  * @license MIT
  */
-'use strict';
-
 import Candy from '../Candy';
 import InvalidConfigException from '../core/InvalidConfigException';
 import ImplTarget from './ImplTarget';

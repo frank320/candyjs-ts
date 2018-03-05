@@ -2,9 +2,7 @@
  * @author
  * @license MIT
  */
-'use strict';
-
-var fs = require('fs');
+import * as fs from 'fs';
 
 /**
  * 文件处理
