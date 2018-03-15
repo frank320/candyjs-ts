@@ -16,7 +16,7 @@ export default class StringHelper {
      * @param {Number} n 第几次出现
      * @return {Number} 位置值
      */
-    public static indexOfN(str: string, find: string, n: number): number {
+    public static nIndexOf(str: string, find: string, n: number): number {
         let x: number = str.indexOf(find);
         for(let i = 1; i < n; i++) {
             x = str.indexOf(find, x + 1);
