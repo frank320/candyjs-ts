@@ -51,8 +51,8 @@ export default class TimeHelper {
      *
      * @return {String}
      */
-    static format(formats: string, timestamp: number): string {
-        let d = undefined === timestamp ? new Date() : new Date(timestamp);
+    static format(formats: string, timestamp: number = Date.now()): string {
+        let d = new Date(timestamp);
         let funs = {
             y: () => d.getFullYear()
             ,m: () => TimeHelper.stringLPad(String(d.getMonth() + 1), '0', 2)
