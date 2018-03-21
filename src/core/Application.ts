@@ -3,13 +3,13 @@
  * @license MIT
  */
 import Candy from '../Candy';
-import Core from './Core';
+import Fate from './Fate';
 import InvalidConfigException from './InvalidConfigException';
 
 /**
  * 应用基类
  */
-export default class Application extends Core {
+export default class Application extends Fate {
 
     /**
      * @property {String} encoding 编码

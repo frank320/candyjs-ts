@@ -6,9 +6,9 @@ import Candy from '../Candy';
 import StringHelper from '../helpers/StringHelper';
 
 /**
- * MVC 基类
+ * 核心
  */
-export default class Core {
+export default class Fate {
 
     /**
      * @property {String | Object} interceptAll 拦截所有路由
