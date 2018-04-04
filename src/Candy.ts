@@ -18,7 +18,7 @@ export default class Candy {
     /**
      * @property {Object} pathAliases 路径别名
      */
-    public static pathAliases: any = {'@y': __dirname};
+    public static pathAliases: any = {'@candy': __dirname};
 
     /**
      * @property {String} fileExtention 默认文件扩展名

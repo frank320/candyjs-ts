@@ -88,7 +88,7 @@ export default class Logger {
     /**
      * 获取日志类实例
      *
-     * @return {Logger}
+     * @return {Logger} 实例
      */
     public static getLogger(): Logger {
         if(null === Logger._logger) {
@@ -102,7 +102,7 @@ export default class Logger {
      * 创建新日志对象
      *
      * @param {any} settings
-     * @return {Logger}
+     * @return {Logger} 实例
      */
     public static newInstance(settings): Logger {
         return new Logger(settings);
