@@ -49,7 +49,7 @@ export default class Application extends Fate {
      * @param {Object} config 应用配置
      * @throws {InvalidConfigException} 当丢失必要配置项目时
      */
-    public init(config: any) {
+    public init(config: any): void {
         if(undefined === config.id) {
             throw new InvalidConfigException('The "id" configuration is required');
         }
@@ -85,7 +85,7 @@ export default class Application extends Fate {
      *
      * @param {String} path 应用路径
      */
-    public setAppPath(path: string) {
+    public setAppPath(path: string): void {
         Candy.setPathAlias('@app', path);
     }
 
@@ -103,7 +103,7 @@ export default class Application extends Fate {
      *
      * @param {String} path 路径
      */
-    public setRuntimePath(path: string) {
+    public setRuntimePath(path: string): void {
         Candy.setPathAlias('@runtime', path);
     }
 
@@ -121,7 +121,7 @@ export default class Application extends Fate {
      *
      * @param {String} path 路径
      */
-    public setRootPath(path: string) {
+    public setRootPath(path: string): void {
         Candy.setPathAlias('@root', path);
     }
 

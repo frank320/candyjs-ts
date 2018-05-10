@@ -2,6 +2,7 @@
  * @author
  * @license MIT
  */
+import Rest from './core/Rest';
 import CoreApp from './core/Application';
 import StringHelper from './helpers/StringHelper';
 
@@ -14,6 +15,11 @@ export default class Candy {
      * @property {CoreApp} app 应用实例
      */
     public static app: CoreApp = null;
+
+    /**
+     * @property {Rest} rest
+     */
+    public static rest: Rest = null;
 
     /**
      * @property {Object} pathAliases 路径别名
