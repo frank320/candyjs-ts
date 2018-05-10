@@ -6,7 +6,7 @@
 /**
  * 视图
  */
-export default class View {
+abstract class View {
 
     /**
      * @var {String} 默认视图文件后缀
@@ -41,7 +41,7 @@ export default class View {
      * @param {String} view 视图文件名
      * @param {any} callback 回调函数
      */
-    public getTemplate(view: string, callback: any): void {}
+    public abstract getTemplate(view: string, callback: any): void;
 
     /**
      * 从指定路径读取视图文件
@@ -49,6 +49,8 @@ export default class View {
      * @param {String} path 文件路径
      * @param {any} callback 回调函数
      */
-    public getTemplateFromPath(path: string, callback: any): void {}
+    public abstract getTemplateFromPath(path: string, callback: any): void;
 
 }
+
+export default View;

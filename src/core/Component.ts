@@ -10,33 +10,37 @@ import Behavior from './Behavior';
  */
 export default class Component {
 
+    /**
+     * @property {Object} eventsMap the attached event handlers
+     *
+     * ```
+     * {
+     *     'eventName': [fn1, fn2...]
+     *     'eventName2': [fn1, fn2...]
+     * }
+     * ```
+     *
+     */
     public eventsMap: any;
+
+    /**
+     * @property {Object} behaviorsMap the attached behaviors
+     *
+     * ```
+     * {
+     *     'behaviorName': BehaviorInstance
+     *     ...
+     * }
+     * ```
+     *
+     */
     public behaviorsMap: any;
 
     /**
      * constructor
      */
     constructor() {
-        /**
-         * @property {Object} eventsMap the attached event handlers
-         *
-         * {
-         *     'eventName': [fn1, fn2...]
-         *     'eventName2': [fn1, fn2...]
-         * }
-         *
-         */
         this.eventsMap = {};
-
-        /**
-         * @property {Object} behaviorsMap the attached behaviors
-         *
-         * {
-         *     'behaviorName': BehaviorInstance
-         *     ...
-         * }
-         *
-         */
         this.behaviorsMap = {};
 
         this.ensureDeclaredBehaviorsAttached();

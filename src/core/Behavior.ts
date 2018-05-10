@@ -15,7 +15,7 @@ import Component from './Component';
  */
 export default class Behavior {
 
-     /**
+    /**
      * @property {Component} component 拥有行为的组件
      */
     public component: Component;

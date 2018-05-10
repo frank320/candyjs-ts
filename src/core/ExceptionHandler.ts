@@ -6,7 +6,7 @@
 /**
  * 异常错误处理基类
  */
-export default class ExceptionHandler {
+abstract class ExceptionHandler {
 
     /**
      * 异常处理
@@ -14,6 +14,8 @@ export default class ExceptionHandler {
      * @param {object} response 输出类
      * @param {Error} exception 异常类
      */
-    handlerException(response: any, exception: Error) {}
+    public abstract handlerException(response: any, exception: Error): void;
 
 }
+
+export default ExceptionHandler;

@@ -51,7 +51,7 @@ export default class CandyJs {
     }
 
     // web
-    public requestListenerWeb(req: http.ServerRequest, res: http.ServerResponse) {
+    public requestListener(req: http.ServerRequest, res: http.ServerResponse) {
         try {
             this.app.requestListener(req, res);
 
@@ -63,7 +63,7 @@ export default class CandyJs {
     // handler
     public handler(req: http.ServerRequest, res: http.ServerResponse) {
         Hook.getInstance().trigger(req, res, () => {
-            this.requestListenerWeb(req, res);
+            this.requestListener(req, res);
         });
     }
 

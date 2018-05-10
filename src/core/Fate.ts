@@ -13,6 +13,7 @@ export default class Fate {
     /**
      * @property {String | Object} interceptAll 拦截所有路由
      *
+     * ```
      * 'app/some/Class'
      *
      * or a Object config
@@ -21,6 +22,7 @@ export default class Fate {
      *      'class': 'app/some/Class',
      *      'property': 'value'
      * }
+     * ```
      *
      */
     public interceptAll: any;
@@ -28,6 +30,7 @@ export default class Fate {
     /**
      * @property {Object} routesMap 实现路由到控制器转换配置
      *
+     * ```
      * {
      *     'u': 'app/controllers/user/IndexController',
      *     'account': {
@@ -35,6 +38,7 @@ export default class Fate {
      *         'property': 'value'
      *     }
      * }
+     * ```
      *
      */
     public routesMap: any;

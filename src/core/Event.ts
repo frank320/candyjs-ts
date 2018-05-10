@@ -11,10 +11,13 @@ export default class Event {
     /**
      * @property {Object} handlers
      *
+     * ```
      * {
      *     'eventName': [fn1, fn2...]
      *     'eventName2': [fn1, fn2...]
      * }
+     * ```
+     *
      */
     public handlers: any;
 

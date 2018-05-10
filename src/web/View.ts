@@ -56,7 +56,7 @@ export default class View extends CoreView {
     /**
      * @inheritdoc
      */
-    getTemplateFromPath(path: string, callback: any): void {
+    public getTemplateFromPath(path: string, callback: any): void {
         fs.readFile(path, Candy.app.encoding, callback);
     }
 
